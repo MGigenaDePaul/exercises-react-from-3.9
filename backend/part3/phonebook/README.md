@@ -1,10 +1,9 @@
 # Full Stack Phonebook
 
-This is the backend implementation for the Phonebook application (Part 3 of the Full Stack Open course).
+This is the full stack phonebook implementation of Exercise 3.11 
 
-## Deploy 
-
-The backend is live at: [https://deployment-backend-03wo.onrender.com]
+## URL
+Fullstack phonebook url: [https://deployment-backend-03wo.onrender.com]
 
 ## Available Endpoints
 - `GET /api/persons` — Get all persons
