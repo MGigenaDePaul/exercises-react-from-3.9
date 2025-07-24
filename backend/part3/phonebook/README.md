@@ -1,8 +1,8 @@
-# Phonebook Backend
+# Full Stack Phonebook
 
 This is the backend implementation for the Phonebook application (Part 3 of the Full Stack Open course).
 
-## Deployed API
+## Deploy 
 
 The backend is live at: [https://deployment-backend-03wo.onrender.com]
 
@@ -14,7 +14,6 @@ The backend is live at: [https://deployment-backend-03wo.onrender.com]
 - `DELETE /api/persons/:id` — Delete a person
 
 ## Tech Stack
-
 - Node.js
 - Express
 - Render (cloud deployment)
