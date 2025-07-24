@@ -29,6 +29,8 @@ app.use(express.json())
 
 app.use(morgan(':method :url :response-time ms :body')) // custom token formats
 
+app.use(express.static('dist'))
+
 morgan.token('body', function getBody(req, res) {
     return JSON.stringify(req.body)
 })
