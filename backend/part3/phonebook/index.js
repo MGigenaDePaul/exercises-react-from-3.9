@@ -46,16 +46,10 @@ app.get('/api/persons/:id', (request, response) => {
     }
 })
 
-
-const generateId = () => {
-    const randomId = Math.floor(Math.random() * 1000000)
-    return String(randomId)
-}
-
 app.post('/api/persons', (request, response) => {
     const body = request.body 
 
-    if(!body.name || !body.number){
+    if(!body.name || !body.number) {
         return response.status(400).json({error: 'name or number missing'})
     }
 
@@ -64,15 +58,14 @@ app.post('/api/persons', (request, response) => {
         return response.status(400).json({error: 'name must be unique'})
     }
 
-    const person = {
-        id: generateId(),
+    const person = new Person({
         name: body.name,
         number: body.number
-    }
+    })
 
-    persons = persons.concat(person)
-
-    response.json(person)
+    person.save().then((savedPerson) => {
+        response.json(savedPerson)
+    })
 })
 
 app.delete('/api/persons/:id', (request, response) => {
