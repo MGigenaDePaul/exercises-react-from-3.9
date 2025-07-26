@@ -6,8 +6,6 @@ const Person = require('./modules/person')
 
 const app = express()
 
-let persons = []
-
 app.use(express.static('dist'))
 
 app.use(express.json())
@@ -63,11 +61,6 @@ app.post('/api/persons', (request, response) => {
         return response.status(400).json({error: 'name or number missing'})
     }
 
-    const nameExists = persons.find(person => person.name === body.name)
-    if(nameExists){
-        return response.status(400).json({error: 'name must be unique'})
-    }
-
     const person = new Person({
         name: body.name,
         number: body.number
@@ -77,6 +70,27 @@ app.post('/api/persons', (request, response) => {
         response.json(savedPerson)
     })
 })
+
+
+app.put('/api/persons/:id', (request, response, next) => {
+    const { name, number } = request.body 
+
+    Person.findById(request.params.id)
+        .then(person => {
+            if(!person){
+                return response.status(404).end()
+            }
+
+            person.name = name
+            person.number = number
+            
+            return person.save().then((updatedPerson) => {
+                response.json(updatedPerson)
+            })
+        })
+        .catch(error => next(error))
+})
+
 
 app.delete('/api/persons/:id', (request, response, next) => {
     Person.findByIdAndDelete(request.params.id)

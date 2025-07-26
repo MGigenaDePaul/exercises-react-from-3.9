@@ -42,23 +42,50 @@ const App = () => {
         setNewName(event.target.value)
     }
 
-    const addPerson = (event) => {
-        event.preventDefault()
-        
-        const personObject = {
-                name: newName,
-                number: newNumber
-            }
+    const replaceOldNumber = (id) => {
+        const person = persons.find(person => person.id === id)
+        const changedPerson = {...person, number: newNumber}
+        console.log("found person", person)
+        console.log("changed person", changedPerson)
 
-        personService.create(personObject).then(returnedPerson => {
-                setPersons(persons.concat(returnedPerson))
-                setNewName('')
-                setNewNumber('')
-                setMessage(`Added ${personObject.name}`)
+        if(window.confirm((`${newName} is already added to phonebook, replace the old number with a new one?`))) {
+            personService.update(id, changedPerson).then(returnedPerson => {
+                setPersons(persons.map(person => person.id === id ? returnedPerson : person))
+                setMessage(`${person.name} number is changed to ${changedPerson.number}`)
                 setTimeout(() => {
                     setMessage(null)
                 }, 5000)
             })
+            .catch(() => {
+                console.log("Couldn't update number")
+            })
+        }
+    } 
+
+    const addPerson = (event) => {
+        event.preventDefault()
+        
+        const personExists = persons.find(person => person.name.toLowerCase() === newName.toLowerCase())
+
+        if(personExists){ 
+            replaceOldNumber(personExists.id)
+            setMessage(`Information of ${personExists.name} has already been removed from server`)
+        } else {
+            const personObject = {
+                name: newName,
+                number: newNumber
+            }
+
+            personService.create(personObject).then(returnedPerson => {
+                    setPersons(persons.concat(returnedPerson))
+                    setNewName('')
+                    setNewNumber('')
+                    setMessage(`Added ${personObject.name}`)
+                    setTimeout(() => {
+                        setMessage(null)
+                    }, 5000)
+            })
+        }
     }
 
     const handleNumberChange = (event) => {
