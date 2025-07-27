@@ -38,20 +38,17 @@ app.get('/api/persons', (request, response) => {
 
 app.get('/info', (request, response) => {
     const date = new Date().toString()
-    response.send(`
-    <p>Phonebook has info for ${persons.length} people</p>
-    ${date}`)
+    Person.estimatedDocumentCount().then(count => {
+        response.send(`<p>Phonebook has info for ${count} people</p>
+        ${date}`)
+    })
+    
 })
 
 app.get('/api/persons/:id', (request, response) => {
-    const id = request.params.id 
-    const person = persons.find((person) => person.id === id)
-
-    if (person) {
+    Person.findById(request.params.id).then(person => {
         response.json(person)
-    } else {
-        response.status(404).end()
-    }
+    })
 })
 
 app.post('/api/persons', (request, response) => {

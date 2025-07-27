@@ -1,1 +1,1 @@
-GET http://localhost:3001/api/persons
+GET http://localhost:3001/api/persons/68829c435f5ba0f74c65cc20
