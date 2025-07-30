@@ -26,7 +26,8 @@ const App = () => {
     const deletePerson = (id) => {
         const person = persons.find(person => person.id === id)
         console.log("found person to delete", person)
-        if (window.confirm(`Delete ${person.name}?`)) {
+        const ok = window.confirm(`Delete ${person.name}?`)
+        if (ok) {
             personService.eliminate(id).then(() => {
                 setPersons(persons.filter(person => person.id !== id))
             })
@@ -47,8 +48,9 @@ const App = () => {
         const changedPerson = {...person, number: newNumber}
         console.log("found person", person)
         console.log("changed person", changedPerson)
-
-        if(window.confirm((`${newName} is already added to phonebook, replace the old number with a new one?`))) {
+        
+        const ok = window.confirm((`${newName} is already added to phonebook, replace the old number with a new one?`))
+        if (ok) {
             personService.update(id, changedPerson).then(returnedPerson => {
                 setPersons(persons.map(person => person.id === id ? returnedPerson : person))
                 setMessage(`${person.name} number is changed to ${changedPerson.number}`)

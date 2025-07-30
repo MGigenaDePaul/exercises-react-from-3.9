@@ -5,7 +5,6 @@ mongoose.set('strictQuery', false)
 const url = process.env.MONGODB_URI
 
 console.log('connecting to', url)
-
 mongoose.connect(url)
   .then(() => {
     console.log('connected to MongoDB')
@@ -27,7 +26,7 @@ const personSchema = new mongoose.Schema({
         v = v.trim()
         return (/\d{2}-\d{6,}/.test(v) || /\d{3}-\d{5,}/.test(v))  // 2 or 3 numbers in the beggining, then at least 6 or 5 digits to complete the minLength
       },
-      message: props => `${props.value} is not a valid phone number!`
+      message: () => 'The phone number must be at least 8 characters long and must contain a hyphen after the second or third digit (e.g., 040-6655678).'
     },
     minLength: 8,
     required: true

@@ -12,9 +12,7 @@ app.use(express.json())
 
 app.use(morgan(':method :url :response-time ms :body')) // custom token formats
 
-morgan.token('body', function getBody(req) {
-  return JSON.stringify(req.body)
-})
+morgan.token('body', req => JSON.stringify(req.body) )
 
 const errorHandler = (error, request, response, next) => {
   console.log(error.message)
@@ -41,8 +39,11 @@ app.get('/api/persons', (request, response) => {
 app.get('/info', (request, response) => {
   const date = new Date().toString()
   Person.estimatedDocumentCount().then(count => {
-    response.send(`<p>Phonebook has info for ${count} people</p>
-        ${date}`)
+    const html =  `
+        <p>Phonebook has info for ${count} people</p>
+        <p>${date}</p>
+    `
+    response.send(html)
   })
 
 })
@@ -54,11 +55,11 @@ app.get('/api/persons/:id', (request, response) => {
 })
 
 app.post('/api/persons', (request, response, next) => {
-  const body = request.body
+  const { name, number } = request.body
 
   const person = new Person({
-    name: body.name,
-    number: body.number
+    name,
+    number
   })
 
   person.save()
