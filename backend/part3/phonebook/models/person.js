@@ -25,7 +25,7 @@ const personSchema = new mongoose.Schema({
     validate: {
       validator: function(v) {
         v = v.trim()
-        return (/\d{2}-\d{6,}/.test(v) || /\d{3}-\d{5,}/.test(v))  // 2 or 3 numbers in the beggining
+        return (/\d{2}-\d{6,}/.test(v) || /\d{3}-\d{5,}/.test(v))  // 2 or 3 numbers in the beggining, then at least 6 or 5 digits to complete the minLength
       },
       message: props => `${props.value} is not a valid phone number!`
     },
