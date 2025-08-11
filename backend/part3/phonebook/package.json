@@ -2,13 +2,13 @@
   "name": "part3",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://github.com/MGigenaDePaul/exercises-react#readme",
+  "homepage": "https://github.com/MGigenaDePaul/exercises-react-from-3.9#readme",
   "bugs": {
-    "url": "https://github.com/MGigenaDePaul/exercises-react/issues"
+    "url": "https://github.com/MGigenaDePaul/exercises-react-from-3.9/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MGigenaDePaul/exercises-react.git"
+    "url": "git+https://github.com/MGigenaDePaul/exercises-react-from-3.9.git"
   },
   "license": "MIT",
   "author": "Miqueas Gigena",

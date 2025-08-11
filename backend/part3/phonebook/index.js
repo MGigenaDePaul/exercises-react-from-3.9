@@ -12,7 +12,7 @@ app.use(express.json())
 
 app.use(morgan(':method :url :response-time ms :body')) // custom token formats
 
-morgan.token('body', req => JSON.stringify(req.body) )
+morgan.token('body', req => JSON.stringify(req.body))
 
 const errorHandler = (error, request, response, next) => {
   console.log(error.message)
